@@ -1,23 +1,31 @@
-'''Escribe un programa que vaya pidiendo al usuario números enteros positivos que debe ir sumando. 
-Cuando el usuario no quiera insertar más números, introducirá un número negativo y el algoritmo, antes de acabar, mostrará la suma de los números positivos introducidos por el usuario.
-'''
-# Inicializamos la variable suma a 0
-suma = 0
+''' Realiza un programa que pida 8 números enteros y los almacene en una lista.
+ A continuación, recorrerá esa tabla y mostrará esos números junto con la palabra “par” o “impar” según proceda.'''
+ 
+# Declaramos la lista vacia.
+miLista = []
 
-# Le preguntamos al usuario un número 
-valor1 = int(input("Introduce un valor: "))
+# Creamos un bucle que se recorra 8 veces.
+for valor in range(10):
+   
+     # Preguntamos el valor.
+     valor = float(input("Introduce el valor: "))
+     
+     # Añadimos el valor a la lista.
+     miLista.append(valor)
 
-# Sumamos el valor
-suma += valor1
-
-# Creamos un bucle
-while valor1 >= 0:
+# Recorremos el bucle y comprobamos que sea impar o par el valor.
+for valor in miLista:
     
-    # Le preguntamos al usuario un número 
-    valor1 = int(input("Introduce un valor: "))
+    # Comprobamos que el valor sea par.
+    if valor % 2 == 0:
+        
+        # Imprimimos que es par.
+        print(valor, "es par.")
     
-    # Sumamos el valor
-    suma += valor1
-
-# Imprimimos el resultado de la suma.
-print("La cantidad de la suma es de", suma)  
+    # Si no se cumple la condición.
+    else:
+        
+        # Imprimimos que el valor es impar.
+        print(valor, "es impar.")
+        
+     

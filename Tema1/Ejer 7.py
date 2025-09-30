@@ -1,18 +1,3 @@
-# Realiza un programa que pida un número entero positivo y nos diga si es primo o no.
-
-# Preguntamos el número.
-valor1 = int(input("Introduce un número: "))
-
-if valor1 < 2:
-    print("No es primo")
-else:
-    es_primo = True
-    for i in range(2, int(valor1 ** 0.5) + 1):
-        if valor1 % i == 0:
-            es_primo = False
-    if es_primo:
-        print("Es primo")
-    else:
-        print("No es primo")
+# Crea un programa que permita al usuario agregar, eliminar y buscar contactos en una libreta de direcciones implementada como un diccionario. La clave del diccionario será el nombre del contacto y el valor, su número de teléfono. Crea un menú para las distintas opciones e implementa una función para cada opción.
 
 

@@ -1,11 +1,1 @@
-# Solicita al usuario un número n y dibuja un triángulo de base y altura n. Por ejemplo para n=4 debe dibujar lo siguiente:
-#    *
-#   * *
-#  * * *
-# * * * *
-
-# Preguntamos la altura.
-n = int(input("Introduce la altura de la pirámide: "))
-for i in range(1, n + 1):
-    print(" " * (n - i) + "* " * i)
-
+# Diseña un programa que registre las ventas de una tienda en un diccionario, donde las claves son los nombres de los productos y los valores son las cantidades vendidas. El programa debe permitir al usuario agregar nuevas ventas y calcular el total de ventas para un producto específico. Implementa un menú con ambas opciones. 
