@@ -1,13 +1,35 @@
-# Diseñar una aplicación que solicite al usuario un número e indique si es par o impar.
-
-# Le preguntamos al usuario cual es el número.
-valor = int(input("Introduce un número: "))
-
-# Comprobamos que el número sea primo.
-if valor % 2 == 0:
+class CuentaCorriente:
+    def __init__(self, dni, saldo, nombre = ""):
+        self.dni = dni
+        self.nombre = nombre
+        self.saldo = saldo
+        
+    def sacarDinero(self,cantidad):
+        if self.saldo - cantidad >= 0:
+            self.saldo -= cantidad
+            
+    def ingresarDinero(self,cantidad):
+        self.saldo += cantidad
+            
+    def __str__(self):
+        return "Nombre: " + self.nombre + " DNI: " + str(self.dni) + " Saldo: " + str(self.saldo)
     
-    # Imprimimos que el valor es par.
-    print("El valor es par.")
-else:
-    # Imprimimos que el valor es impar.
-    print("El valor es impar.")
+    def __eq__(self, other):
+        return self.dni == other.dni  
+
+
+class Prueba: 
+    
+    def main():
+        obj = CuentaCorriente("11223344",1000, "Pedro Sanchez")
+        print(obj)
+        obj.ingresarDinero(1000)
+        print(obj)
+        obj.sacarDinero(200)
+        print(obj)
+
+
+    if __name__ == "__main__" :
+        main()
+    
+    
