@@ -1,23 +1,39 @@
-'''Escribe un programa que vaya pidiendo al usuario números enteros positivos que debe ir sumando. 
-Cuando el usuario no quiera insertar más números, introducirá un número negativo y el algoritmo, antes de acabar, mostrará la suma de los números positivos introducidos por el usuario.
-'''
-# Inicializamos la variable suma a 0
-suma = 0
-
-# Le preguntamos al usuario un número 
-valor1 = int(input("Introduce un valor: "))
-
-# Sumamos el valor
-suma += valor1
-
-# Creamos un bucle
-while valor1 >= 0:
+class Punto:
     
-    # Le preguntamos al usuario un número 
-    valor1 = int(input("Introduce un valor: "))
+    def __init__(self, x,y):
+        self.x = x
+        self.y = y
     
-    # Sumamos el valor
-    suma += valor1
+    def setXY(self,x,y):
+        self.x = x
+        self.y = y
+    
+    def desplaza(self,dx,dy):
+        self.x += dx
+        self.y = dy
+        
+    def distancia(self,other):
+        return f'({self.x-other.x},{self.y-other.y})'
+    
+    def __str__(self):
+        return f'({self.x},{self.y})'
+    
+def main():
+    
+    punto1 = Punto(1,3)
+    punto2 = Punto(2,4)
+    
+    print(punto1.distancia(punto2))
+    
+    punto2.desplaza(2,2)
+    print(punto1.distancia(punto2))
+    
+if __name__ == "__main__":
+    
+    main()
 
-# Imprimimos el resultado de la suma.
-print("La cantidad de la suma es de", suma)  
+    
+    
+    
+    
+        

@@ -11,3 +11,57 @@ Sacar dinero: el método debe indicar si ha sido posible llevar a cabo la operac
 Ingresar dinero: se incrementa el saldo.
 
 Crear también los métodos __str__, __eq__ y __lt__. Se considera que dos cuentas corrientes son iguales si tienen el mismo DNI. Las cuentas corrientes se ordenarán de menor a mayor por el saldo.
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Ejercicio 2:
+
+Crea una clase llamada Libro que guarde la información de cada uno de los libros de una biblioteca. 
+La clase debe guardar el título del libro, autor, número de ejemplares del libro y número de ejemplares prestados. 
+La clase contendrá los siguientes métodos:
+
+Constructor con todos los parámetros (se le indica valores para todos los atributos).
+
+prestamo(): incrementa el atributo correspondiente cada vez que se realice un préstamo. 
+No se pueden prestar libros si no quedan ejemplares disponibles para prestar. Devuelve true si se ha podido realizar el préstamo y false en caso contrario.
+
+devolucion(): decrementa el atributo correspondiente cada vez que se devuelva un libro.
+No se podrán devolver libros que no se hayan prestado. Devuelve true si se ha podido realizar la operación y false en caso contrario.
+
+Crear también los métodos __str__, __eq__ y __lt__. Se considera que dos  libros son iguales si tienen el mismo título y el mismo autor.
+Los libros se ordenarán de menor a mayor por el nombre del autor.
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Ejercicio 3:
+
+Crea una clase llamada Punto que representará un punto de dos dimensiones en un plano. Solo contendrá dos atributos enteros llamados x e y (coordenadas). 
+Debe tener los siguientes métodos:
+
+Un constructor con parámetros que copie las coordenadas pasadas como argumento a los atributos del objeto.
+
+__str__(): Devuelve una cadena con el formato “(x, y)”. Ejemplo: “(7, -5)”
+
+setXY(x,y): Modifica ambas coordenadas.
+
+desplaza(dx, dy): Desplaza el punto la cantidad (dx,dy) indicada. Ejemplo: Si el punto (1,1) se desplaza (2,5) entonces estará en (3,6).
+
+distancia(punto): Calcula y devuelve la distancia entre el propio objeto (self) y otro objeto (punto) que se pasa como parámetro 
+(distancia entre dos coordenadas).
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Ejercicio 4:
+
+Crea una clase llamada Articulo con los siguientes atributos: nombre, precio (sin IVA), iva (siempre será 21) y cuantosQuedan.
+
+Añade los siguientes métodos:
+Constructor con 3 parámetros que asigne valores a nombre, precio y cuantosQuedan. El IVA siempre lo pondrá a 21.
+
+Método getPVP que devuelva el precio de venta al público (PVP) con iva incluido. 
+
+Método getPVPDescuento que devuelva el PVP con un descuento pasado como argumento. 
+
+Método vender que actualiza los atributos del objeto tras vender una cantidad ‘x’ (si es posible). 
+Devolverá true si ha sido posible (false en caso contrario).
+La cantidad a vender se pasará como argumento al método.
+
+Método almacenar que actualiza los atributos del objeto tras almacenar una cantidad ‘x’. La cantidad a almacenar se pasará como argumento.
+Crear también los métodos __str__, __eq__ y __lt__. Se considera que dos  artículos son iguales si tienen el mismo nombre. 
+Los artículos se ordenarán de menor a mayor por el nombre.
+
+
