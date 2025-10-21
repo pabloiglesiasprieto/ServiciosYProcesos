@@ -53,4 +53,13 @@ def get_directores_por_nacionalidad(nacionalidad: str):
 def get_directores_por_nombre(empieza_con: str):
     lista = [director for director in listaDirectores if director["nombre"].lower().startswith(empieza_con.lower())]
     return lista if lista else {"error": "No se encontraron directores que empiecen por {empieza_con}"}
-    
+
+@app.get("/directores/dni/{dni}")
+def get_director_por_dni(dni: str):
+    lista = [director for director in listaDirectores if director["dni"].lower() == dni.lower()]
+    return lista[0] if lista else {"error": "Director no encontrado con ese DNI"}
+
+@app.get("/directores/apellidos/{apellidos}")
+def get_directores_por_apellidos(apellidos: str):
+    lista = [director for director in listaDirectores if director["apellidos"].lower() == apellidos.lower()]
+    return lista[0] if lista else {"error": "No se encontraron directores con esos apellidos"}
