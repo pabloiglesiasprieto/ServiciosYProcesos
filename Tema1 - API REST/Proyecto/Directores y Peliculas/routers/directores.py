@@ -1,8 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
-
+router = APIRouter(prefix="/directores", tags=["directores"])
 
 class Director(BaseModel):
     id: int
@@ -50,22 +49,22 @@ def lastID():
 #endregion utils
 
 # region gets
-@app.get("/directores")
+@router.get("/")
 def get_directores():
     return listaDirectores
 
 
-@app.get("/directores/")
+@router.get("")
 def get_directores(id: int):
     return findById(id)
 
 
-@app.get("/directores/{director_id}")
+@router.get("/{director_id}")
 def get_director(director_id: int):
     return findById(director_id)
 
 
-@app.get("/directores/nacionalidad/{nacionalidad}")
+@router.get("/nacionalidad/{nacionalidad}")
 def get_directores_por_nacionalidad(nacionalidad: str):
     lista = [
         director
@@ -79,7 +78,7 @@ def get_directores_por_nacionalidad(nacionalidad: str):
         raise HTTPException(status_code=404, detail="Director no encontrado")
 
 
-@app.get("/directores/nombre/{empieza_con}")
+@router.get("/nombre/{empieza_con}")
 def get_directores_por_nombre(empieza_con: str):
     lista = [
         director
@@ -92,7 +91,7 @@ def get_directores_por_nombre(empieza_con: str):
         raise HTTPException(status_code=404, detail="Director no encontrado")
 
 
-@app.get("/directores/dni/{dni}")
+@router.get("/dni/{dni}")
 def get_director_por_dni(dni: str):
     lista = [
         director
@@ -105,7 +104,7 @@ def get_director_por_dni(dni: str):
         raise HTTPException(status_code=404, detail="Director no encontrado")
 
 
-@app.get("/directores/apellidos/{apellidos}")
+@router.get("/apellidos/{apellidos}")
 def get_directores_por_apellidos(apellidos: str):
     lista = [
         director
@@ -119,14 +118,14 @@ def get_directores_por_apellidos(apellidos: str):
     
 #endregion gets
 #region posts
-@app.post("/directores", response_model=Director, status_code=201)
+@router.post("/", response_model=Director, status_code=201)
 def crear_director(director: Director):
     director.id = lastID()
     listaDirectores.append(director)
     return director
 #endregion posts
 #region puts
-@app.put("/directores/{director_id}", response_model=Director)
+@router.put("/{director_id}", response_model=Director)
 def actualizar_director(director_id: int, director_actualizado: Director):
     for index, director in enumerate(listaDirectores):
         if director.id == director_id:
@@ -136,10 +135,11 @@ def actualizar_director(director_id: int, director_actualizado: Director):
     raise HTTPException(status_code=404, detail="Director no encontrado")
 #endregion puts
 #region deletes
-@app.delete("/directores/{director_id}")
+@router.delete("/{director_id}")
 def eliminar_director(director_id: int):
     for director in listaDirectores:
         if director.id == director_id:
             listaDirectores.remove(director)
             return {}
     raise HTTPException(status_code=404, detail="Director no encontrado")
+#endregion deletes

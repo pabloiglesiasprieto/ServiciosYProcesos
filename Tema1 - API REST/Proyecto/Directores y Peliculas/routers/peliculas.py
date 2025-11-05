@@ -1,13 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter(prefix=("/peliculas"))
 
 class Pelicula(BaseModel):
     id: int
     titulo: str
-    duracion: int # minutos
-    idDirector: int # FK de Director.id
+    duracion: int 
+    idDirector: int
 
 listaPeliculas = [
 Pelicula(id=1, titulo="Inception", duracion=148, idDirector=3),
@@ -67,22 +67,22 @@ def lastID():
 #endregion utils
 #region gets
 
-@app.get("/peliculas")
+@router.get("/")
 def get_peliculas():
     return listaPeliculas
 
-@app.get("/peliculas/{pelicula_id}")
+@router.get("/{pelicula_id}")
 def get_pelicula(pelicula_id: int):
     return findById(pelicula_id)
 
-@app.get("/peliculas/director/{idDirector}")
+@router.get("/pelicula/{idDirector}")
 def get_peliculas_por_director(idDirector: int):
     lista = [p for p in listaPeliculas if p.idDirector == idDirector]
     if lista:
         return lista
     raise HTTPException(status_code=404, detail="No hay películas para ese director")
 
-@app.get("/peliculas/titulo/{empieza_con}")
+@router.get("/titulo/{empieza_con}")
 def get_peliculas_por_titulo(empieza_con: str):
     lista = [p for p in listaPeliculas if p.titulo.lower().startswith(empieza_con.lower())]
     if lista:
@@ -92,7 +92,7 @@ def get_peliculas_por_titulo(empieza_con: str):
 #endregion gets
 #region posts
 
-@app.post("/peliculas", response_model=Pelicula, status_code=201)
+@router.post("/", response_model=Pelicula, status_code=201)
 def crear_pelicula(pelicula: Pelicula):
     pelicula.id = lastID()
     listaPeliculas.append(pelicula)
@@ -101,7 +101,7 @@ def crear_pelicula(pelicula: Pelicula):
 #endregion posts
 #region puts
 
-@app.put("/peliculas/{pelicula_id}", response_model=Pelicula)
+@router.put("/{pelicula_id}", response_model=Pelicula)
 def actualizar_pelicula(pelicula_id: int, pelicula_actualizada: Pelicula):
     for index, p in enumerate(listaPeliculas):
         if p.id == pelicula_id:
@@ -113,12 +113,12 @@ def actualizar_pelicula(pelicula_id: int, pelicula_actualizada: Pelicula):
 #endregion puts
 #region deletes
 
-@app.delete("/peliculas/{pelicula_id}")
+@router.delete("/{pelicula_id}")
 def eliminar_pelicula(pelicula_id: int):
     for p in listaPeliculas:
         if p.id == pelicula_id:
             listaPeliculas.remove(p)
-        return {}
+            return {}
     raise HTTPException(status_code=404, detail="Película no encontrada")
 
 #endregion deletes
