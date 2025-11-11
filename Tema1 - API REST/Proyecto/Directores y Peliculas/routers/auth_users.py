@@ -1,10 +1,13 @@
 from pydantic import BaseModel
+
+from datetime import *
 import jwt
 from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 
+# OAuth2PasswordRequestForm envia usuario y contraseña.
 
 # Algoritmo de cifrado del token.
 ALGORITHM = "HS256"
@@ -69,3 +72,19 @@ def register(user: UserDB):
         users_db[user.username] = user
         return user
     raise HTTPException(status_code=409, detail="The user already exists")
+
+@router.post("/login", status_code=201)
+async def login(form:OAuth2PasswordRequestForm = Depends()):
+    # Cogemos el usuario.
+    username = users_db.get(form.username)
+    
+    if username:
+        #Si el usuario existe en la bbdd.
+        # Comprobamos las contraseñas.
+        if password_hash.verify(form.password, username["password"]):
+            expire = datetime.now(timezone.utc) + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
+            access_token = {"sub" : form.username}
+            token = jwt.encode(access_token, SECRET_KEY, algorithm=ALGORITHM)
+            return {"access token" : token, "token type" : "bearer" }
+    raise HTTPException(status_code=401, detail="Usuario o contraseña incorrecta")
+    
