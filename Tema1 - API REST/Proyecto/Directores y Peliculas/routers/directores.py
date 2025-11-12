@@ -1,5 +1,6 @@
-from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException, Depends
 from pydantic import BaseModel
+from .auth_users import authentication
 
 router = APIRouter(prefix="/directores", tags=["directores"])
 
@@ -119,7 +120,7 @@ def get_directores_por_apellidos(apellidos: str):
 #endregion gets
 #region posts
 @router.post("/", response_model=Director, status_code=201)
-def crear_director(director: Director):
+def crear_director(director: Director, Depends(authentication)):
     director.id = lastID()
     listaDirectores.append(director)
     return director
